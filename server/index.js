@@ -1,3 +1,5 @@
+
+
 const express = require("express");
 const app = express();
 const port = 5000;
@@ -6,12 +8,27 @@ const { connectDb } = require("./db/connection");
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const path = require('path');
+
+
 
 const io = new Server(server, {
   cors: {
     origin: "*",
   },
 });
+
+
+
+
+
+
+
+const _dirname = path.resolve();
+
+
+
+
 
 require("dotenv").config();
 app.use(express.json());
@@ -28,6 +45,10 @@ app.get("/", (req, res) => {
 app.use("/api", require("./routes/route"));
 
 const users = {};
+
+
+
+
 
 io.on("connection", (socket) => {
   console.log(socket.id, "Connected");
@@ -79,6 +100,11 @@ io.on("connection", (socket) => {
       delete users[email];
     }
   });
+});
+
+app.use(express.static(path.join(_dirname , "/client/dist")));
+app.get('*' , (req,res) => {
+  res.sendFile(path.resolve(_dirname , "client", "dist" , "index.html"));
 });
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));
