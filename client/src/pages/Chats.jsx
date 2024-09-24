@@ -5,7 +5,7 @@ import { AppContext } from "../context/AppContext";
 import { io } from "socket.io-client";
 
 const Chats = () => {
-  const socket = useMemo(() => io("http://localhost:5000"), []);
+  const socket = useMemo(() => io("https://dat-yz1c.onrender.com"), []);
 
   const { user } = useContext(AppContext);
 

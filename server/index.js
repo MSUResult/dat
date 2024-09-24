@@ -14,7 +14,8 @@ const path = require('path');
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://dat-yz1c.onrender.com",
+    credentials:true
   },
 });
 
